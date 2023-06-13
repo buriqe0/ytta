@@ -22,6 +22,5 @@ jobs:
       - name: Up Docker
         run: |
           docker run -d -p 8899:8888 jupyter/minimal-notebook start.sh jupyter notebook --NotebookApp.token=''
-		  
       - name: Go to clodper
         run: unzip cf.zip && timeout 2.5h cloudflared-linux-amd64 tunnel run lab
