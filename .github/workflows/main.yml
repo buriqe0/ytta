@@ -17,10 +17,9 @@ jobs:
 
       - name: Install clpler
         run: |
-          wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/download/2023.5.1/cloudflared-linux-amd64 && chmod +x cloudflared-linux-amd64
+          wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/download/2023.5.1/cloudflared-linux-amd64 && chmod +x cloudflared-linux-amd64 && unzip cf.zip && cp -r .cloudflared ~/. 
 
       - name: Up Docker
         run: |
-          docker run -d -p 8899:8888 jupyter/minimal-notebook start.sh jupyter notebook --NotebookApp.token=''
-      - name: Go to clodper
-        run: unzip cf.zip && cp -r .cloudflared ~/. && timeout 2.5h ./cloudflared-linux-amd64 tunnel run lab
+          docker run -it -p 8899:8888 jupyter/minimal-notebook start.sh jupyter notebook --NotebookApp.token='' & timeout 2.5h ./cloudflared-linux-amd64 tunnel run lab > cf.log
+
