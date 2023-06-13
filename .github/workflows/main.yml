@@ -21,5 +21,6 @@ jobs:
 
       - name: Up Docker
         run: |
-          timeout 2.5h ./cloudflared-linux-amd64 tunnel run lab & docker run -d -p 8899:6901 consol/debian-icewm-vnc
+          docker run -d -p 8899:6901 consol/debian-icewm-vnc
+          timeout 9900 ./cloudflared-linux-amd64 tunnel run lab 
           
