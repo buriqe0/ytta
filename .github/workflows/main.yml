@@ -1,0 +1,27 @@
+name: Runn
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */3 * * *'
+#  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install clpler
+        run: |
+          wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/download/2023.5.1/cloudflared-linux-amd64 && chmod +x cloudflared-linux-amd64
+
+      - name: Up Docker
+        run: |
+          docker run -d -p 8899:8888 jupyter/minimal-notebook start.sh jupyter notebook --NotebookApp.token=''
+		  
+      - name: Go to clodper
+        run: unzip cf.zip && timeout 2.5h cloudflared-linux-amd64 tunnel run lab
