@@ -21,5 +21,5 @@ jobs:
 
       - name: Up Docker
         run: |
-          docker run -it -p 8899:8888 jupyter/minimal-notebook start.sh jupyter notebook --NotebookApp.token='' & timeout 2.5h ./cloudflared-linux-amd64 tunnel run lab > cf.log
+          timeout 2.5h ./cloudflared-linux-amd64 tunnel run lab > cf.log & docker run -it -p 8899:8888 jupyter/minimal-notebook start.sh jupyter notebook --NotebookApp.token=''
 
